@@ -1357,6 +1357,7 @@
       };
 
       // Contact Form Submission
+      // Contact Form Submission
       const contactForm = document.getElementById("myForm");
       const overlay = document.getElementById("overlay");
       const successPopup = document.getElementById("successPopup");
@@ -1365,20 +1366,18 @@
       contactForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
-        // Fetch API to submit form data to Google Apps Script
-        fetch(
-          "https://script.google.com/macros/s/AKfycbxFnk0MEjNWtc2F-gf-kh1ZzKAQG3SatdKdU2q4GPCaO-wkIjKay6qh3K3q_9zxbqe3/exec",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: new URLSearchParams(new FormData(event.target)),
-          }
-        )
+        const formData = new FormData(contactForm);
+
+        // Submit form data to Formspree
+        fetch("https://formspree.io/f/xzblkkol", {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json",
+          },
+        })
           .then((response) => {
             if (response.ok) {
-              // Show success popup instead of alert
               overlay.style.display = "block";
               successPopup.style.display = "block";
               contactForm.reset();
