@@ -81,6 +81,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
+    <link rel="preload" as="image" href="assets/me.jpg" />
     <link rel="icon" type="image/jpeg" href="assets/me.jpg" />
     <link rel="apple-touch-icon" href="assets/me.jpg" />
     <link rel="me" href="https://github.com/IsraelOjiefoh" />
@@ -266,6 +267,11 @@
       body {
         background: #fafbfc;
       }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
       .skip-link {
         position: absolute;
         top: -120px;
@@ -377,10 +383,17 @@
         font-size: 0.78rem;
         font-weight: 600;
       }
+      .metric-tile {
+        border: 1px solid #e8edf3;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.78);
+        padding: 1rem;
+      }
       .project-card {
         background: #ffffff;
-        border: 1px solid #eef0f2;
-        border-radius: 20px;
+        border: 1px solid #e8edf3;
+        border-radius: 8px;
+        overflow: hidden;
         transition:
           transform 0.25s ease,
           box-shadow 0.25s ease,
@@ -388,18 +401,40 @@
       }
       .project-card:hover {
         transform: translateY(-3px);
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.07);
+        box-shadow: 0 22px 60px rgba(15, 23, 42, 0.08);
         border-color: rgba(0, 102, 255, 0.15);
       }
-      .project-card .card-accent {
-        height: 4px;
-        background: linear-gradient(90deg, #0066ff, #00d4ff);
-        border-radius: 20px 20px 0 0;
+      .project-media {
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        background: #f5f7fb;
+        border-bottom: 1px solid #eef2f7;
+      }
+      .project-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.3s ease;
+      }
+      .project-card:hover .project-media img {
+        transform: scale(1.025);
+      }
+      .project-stack {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 9999px;
+        border: 1px solid #e6ebf2;
+        color: #475569;
+        background: #f8fafc;
+        padding: 0.35rem 0.65rem;
+        font-size: 0.72rem;
+        font-weight: 600;
       }
       .exp-card {
         background: #ffffff;
         border: 1px solid #eef0f2;
-        border-radius: 20px;
+        border-radius: 8px;
         border-left: 4px solid #0066ff;
         transition:
           transform 0.25s ease,
@@ -460,8 +495,8 @@
       }
       .service-card-modern {
         background: #ffffff;
-        border: 1px solid #eef0f2;
-        border-radius: 20px;
+        border: 1px solid #e8edf3;
+        border-radius: 8px;
         transition:
           transform 0.25s ease,
           box-shadow 0.25s ease,
@@ -469,8 +504,27 @@
       }
       .service-card-modern:hover {
         transform: translateY(-4px);
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 20px 50px rgba(15, 23, 42, 0.07);
         border-color: rgba(0, 102, 255, 0.12);
+      }
+      .mobile-menu {
+        display: none !important;
+      }
+      .contact-shell {
+        border: 1px solid #e8edf3;
+        border-radius: 8px;
+        background: #ffffff;
+        box-shadow: 0 20px 60px rgba(15, 23, 42, 0.06);
+      }
+      .form-label {
+        display: block;
+        margin-bottom: 0.45rem;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: #334155;
+      }
+      .form-status {
+        min-height: 1.25rem;
       }
       @media (max-width: 767px) {
         .nav-links {
@@ -487,13 +541,21 @@
           transform: translateY(-150%);
           transition: transform 0.3s ease;
           z-index: 999;
-          border-radius: 0 0 20px 20px;
+          border-radius: 0 0 8px 8px;
         }
         .nav-links.show {
           transform: translateY(0);
         }
         .nav-links a {
           margin: 0;
+        }
+        .mobile-menu {
+          display: block !important;
+          position: fixed;
+          top: 1rem;
+          right: 1.25rem;
+          transform: none;
+          z-index: 1001;
         }
       }
       button:disabled {
@@ -561,7 +623,7 @@
       </div>
       <button
         type="button"
-        class="mobile-menu block md:hidden text-xl cursor-pointer text-gray-600 border-0 bg-transparent p-2"
+        class="mobile-menu text-xl cursor-pointer text-gray-600 border-0 bg-transparent p-2"
         aria-label="Open navigation menu"
         aria-controls="primary-navigation"
         aria-expanded="false"
@@ -574,271 +636,565 @@
       <!-- Hero Section -->
       <section
         id="home"
-        class="min-h-screen flex items-center relative pt-[80px] overflow-hidden"
+        class="min-h-screen flex items-center relative pt-[88px] pb-20 overflow-hidden"
         aria-labelledby="hero-title"
       >
-      <div class="hero-glow"></div>
-      <div class="hero-glow-2"></div>
-      <div class="max-w-6xl mx-auto px-6 w-full">
-        <div class="flex items-center gap-16 flex-col md:flex-row">
-          <div class="flex-1 min-w-0">
-            <p
-              class="text-sm font-semibold text-primary uppercase tracking-[0.2em] mb-6 reveal visible"
-            >
-              Full-Stack & Mobile Engineer
-            </p>
-            <h1
-              id="hero-title"
-              class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-900 reveal visible"
-              style="transition-delay: 0.1s"
-            >
-              Building systems that<br />
-              <span class="text-primary">actually scale.</span>
-            </h1>
-            <p
-              class="text-lg text-gray-500 max-w-lg mb-10 leading-relaxed reveal visible"
+        <div class="hero-glow"></div>
+        <div class="hero-glow-2"></div>
+        <div class="max-w-6xl mx-auto px-6 w-full">
+          <div class="grid lg:grid-cols-[1.08fr_0.92fr] items-center gap-12 lg:gap-16">
+            <div class="min-w-0">
+              <div
+                class="inline-flex max-w-full flex-wrap items-center gap-2 px-3 py-2 mb-6 rounded-full border border-primary/15 bg-primary/[0.04] text-primary text-[0.68rem] sm:text-xs font-bold uppercase tracking-[0.1em] sm:tracking-[0.16em] leading-relaxed reveal visible"
+              >
+                <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                Available for mobile, APIs, and SaaS
+              </div>
+              <h1
+                id="hero-title"
+                class="text-3xl sm:text-5xl lg:text-[4rem] font-bold leading-tight mb-6 max-w-[21rem] sm:max-w-2xl text-gray-950 reveal visible"
+                style="transition-delay: 0.1s"
+              >
+                I build
+                <span class="text-primary whitespace-nowrap">ready-to-ship</span> mobile apps,
+                APIs, and SaaS systems.
+              </h1>
+              <p
+                class="text-base sm:text-lg text-gray-600 max-w-[21rem] sm:max-w-2xl mb-8 leading-relaxed reveal visible"
+                style="transition-delay: 0.2s"
+              >
+                I'm Israel Ojiefoh, a full-stack and mobile engineer creating
+                React Native apps, NestJS backends, PostgreSQL systems, and
+                AI-ready workflows for teams that need reliable execution.
+              </p>
+              <div
+                class="flex gap-3 flex-col sm:flex-row reveal visible"
+                style="transition-delay: 0.3s"
+              >
+                <a
+                  href="#contact"
+                  class="inline-flex w-full max-w-[21rem] sm:w-auto justify-center items-center gap-2 px-6 py-3 rounded-lg bg-primary text-white font-semibold text-sm hover:bg-[#0055cc] transition-all no-underline shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5"
+                >
+                  Start a project <i class="fas fa-arrow-right text-xs"></i>
+                </a>
+                <a
+                  href="#work"
+                  class="inline-flex w-full max-w-[21rem] sm:w-auto justify-center items-center gap-2 px-6 py-3 rounded-lg border border-gray-200 text-gray-700 font-semibold text-sm hover:border-primary hover:text-primary hover:bg-white transition-all no-underline"
+                >
+                  View selected work
+                </a>
+                <a
+                  href="assets/Israel Ojiefoh.pdf"
+                  download
+                  aria-label="Download Israel Ojiefoh resume as PDF"
+                  class="inline-flex w-full max-w-[21rem] sm:w-auto justify-center items-center gap-2 px-5 py-3 rounded-lg border border-gray-200 text-gray-500 hover:border-primary hover:text-primary hover:bg-white transition-all no-underline text-sm font-semibold"
+                  title="Download resume"
+                >
+                  <i class="fas fa-file-pdf"></i>
+                  Resume
+                </a>
+              </div>
+              <dl
+                class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-10 max-w-[21rem] sm:max-w-none reveal visible"
+                style="transition-delay: 0.4s"
+                aria-label="Engineering focus areas"
+              >
+                <div class="metric-tile">
+                  <dt class="text-xs font-semibold text-gray-500">Mobile</dt>
+                  <dd class="mt-1 text-sm font-bold text-gray-950">
+                    React Native
+                  </dd>
+                </div>
+                <div class="metric-tile">
+                  <dt class="text-xs font-semibold text-gray-500">APIs</dt>
+                  <dd class="mt-1 text-sm font-bold text-gray-950">
+                    NestJS + Express
+                  </dd>
+                </div>
+                <div class="metric-tile">
+                  <dt class="text-xs font-semibold text-gray-500">Data</dt>
+                  <dd class="mt-1 text-sm font-bold text-gray-950">
+                    PostgreSQL
+                  </dd>
+                </div>
+                <div class="metric-tile">
+                  <dt class="text-xs font-semibold text-gray-500">Delivery</dt>
+                  <dd class="mt-1 text-sm font-bold text-gray-950">
+                    CI/CD + Cloud
+                  </dd>
+                </div>
+              </dl>
+            </div>
+
+            <aside
+              class="reveal-right visible"
               style="transition-delay: 0.2s"
+              aria-label="Israel Ojiefoh professional snapshot"
             >
-              I architect production-grade mobile, web, and backend ecosystems —
-              from React Native apps with fluid animations to high-concurrency
-              NestJS APIs.
+              <div class="bg-white border border-gray-200 rounded-lg p-5 max-w-[21rem] sm:max-w-none shadow-2xl shadow-gray-200/70">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-5">
+                  <div class="hero-image-wrapper shrink-0">
+                    <img
+                      src="assets/me.jpg"
+                      alt="Portrait of Israel Ojiefoh, full-stack and mobile engineer"
+                      width="320"
+                      height="320"
+                      loading="eager"
+                      decoding="async"
+                      fetchpriority="high"
+                      class="w-32 h-32 sm:w-40 sm:h-40 object-cover rounded-lg"
+                    />
+                  </div>
+                  <div class="min-w-0">
+                    <p class="text-xs font-bold uppercase tracking-[0.16em] text-primary">
+                      Current focus
+                    </p>
+                    <h2 class="mt-2 text-xl sm:text-2xl font-bold text-gray-950">
+                      Cross-platform products with strong backend foundations.
+                    </h2>
+                  </div>
+                </div>
+                <div class="mt-6 grid gap-3">
+                  <div class="flex items-start gap-3">
+                    <i class="fas fa-mobile-screen-button text-primary mt-1"></i>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                      React Native apps with release pipelines, polished UI
+                      states, and native-feeling interactions.
+                    </p>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i class="fas fa-database text-primary mt-1"></i>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                      Backend systems designed around clean APIs, real-time
+                      flows, and relational data that stays fast.
+                    </p>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i class="fas fa-layer-group text-primary mt-1"></i>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                      Product-minded delivery from architecture through
+                      deployment, handoff, and iteration.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- Work / Project Proof Section -->
+      <section
+        id="work"
+        class="py-24 px-[5%] section-bg-alt"
+        aria-labelledby="work-title"
+      >
+        <div class="max-w-6xl mx-auto px-6">
+          <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
+            <div class="max-w-2xl">
+              <p
+                class="text-sm font-semibold text-primary uppercase tracking-[0.2em] mb-4 reveal"
+              >
+                Selected work
+              </p>
+              <h2
+                id="work-title"
+                class="text-3xl sm:text-4xl font-bold text-gray-950 reveal"
+              >
+                Product builds with real interfaces, data, and deployment
+                concerns.
+              </h2>
+            </div>
+            <p class="text-gray-500 leading-relaxed max-w-md reveal">
+              A focused look at the kind of work clients and teams care about:
+              shipped interfaces, clear product logic, and maintainable
+              engineering underneath.
             </p>
-            <div
-              class="flex gap-4 flex-wrap reveal visible"
-              style="transition-delay: 0.3s"
-            >
-              <a
-                href="#contact"
-                class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-white font-medium text-sm hover:bg-[#0055cc] transition-all no-underline shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5"
-              >
-                Work with me <i class="fas fa-arrow-right text-xs"></i>
-              </a>
-              <a
-                href="#work"
-                class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-gray-200 text-gray-600 font-medium text-sm hover:border-primary hover:text-primary hover:bg-gray-50/50 transition-all no-underline"
-              >
-                View projects
-              </a>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <article class="project-card reveal">
+              <div class="project-media">
+                <img
+                  src="assets/project.jpg"
+                  alt="RunwayLogic AI pricing platform homepage"
+                  width="1600"
+                  height="860"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="p-6">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <p class="text-xs font-bold uppercase tracking-[0.16em] text-primary">
+                      SaaS + AI pricing
+                    </p>
+                    <h3 class="mt-2 text-xl font-bold text-gray-950">
+                      RunwayLogic
+                    </h3>
+                  </div>
+                  <a
+                    href="https://runwaylogic.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View RunwayLogic live site"
+                    class="text-primary hover:text-primary/80 no-underline"
+                  >
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+                  </a>
+                </div>
+                <p class="mt-4 text-sm leading-relaxed text-gray-600">
+                  Co-founded and engineered a fashion-tech platform for smarter
+                  pricing workflows, moving from a React dashboard into a
+                  Shopify App direction.
+                </p>
+                <div class="flex flex-wrap gap-2 mt-5">
+                  <span class="project-stack">React</span>
+                  <span class="project-stack">Shopify</span>
+                  <span class="project-stack">AI workflows</span>
+                  <span class="project-stack">SaaS</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card reveal">
+              <div class="project-media">
+                <img
+                  src="assets/Screenshot (1).png"
+                  alt="OmniCore AI data analysis platform interface"
+                  width="1366"
+                  height="768"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="p-6">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <p class="text-xs font-bold uppercase tracking-[0.16em] text-primary">
+                      Data product
+                    </p>
+                    <h3 class="mt-2 text-xl font-bold text-gray-950">
+                      OmniCore AI
+                    </h3>
+                  </div>
+                  <a
+                    href="https://omnicore-ai.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View OmniCore AI live site"
+                    class="text-primary hover:text-primary/80 no-underline"
+                  >
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+                  </a>
+                </div>
+                <p class="mt-4 text-sm leading-relaxed text-gray-600">
+                  Built an AI-assisted analysis experience for turning complex
+                  data into usable insights, with clear onboarding and dashboard
+                  entry points.
+                </p>
+                <div class="flex flex-wrap gap-2 mt-5">
+                  <span class="project-stack">AI</span>
+                  <span class="project-stack">Analytics</span>
+                  <span class="project-stack">Dashboard</span>
+                  <span class="project-stack">Vercel</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card reveal">
+              <div class="project-media">
+                <img
+                  src="assets/Screenshot (3).png"
+                  alt="Bugless code optimization application homepage"
+                  width="1366"
+                  height="768"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="p-6">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <p class="text-xs font-bold uppercase tracking-[0.16em] text-primary">
+                      Developer tool
+                    </p>
+                    <h3 class="mt-2 text-xl font-bold text-gray-950">
+                      Bugless
+                    </h3>
+                  </div>
+                  <a
+                    href="https://bugless-application.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View Bugless live site"
+                    class="text-primary hover:text-primary/80 no-underline"
+                  >
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+                  </a>
+                </div>
+                <p class="mt-4 text-sm leading-relaxed text-gray-600">
+                  Created a code optimization product surface focused on
+                  analysis, quality checks, and a clearer path from issue
+                  discovery to improvement.
+                </p>
+                <div class="flex flex-wrap gap-2 mt-5">
+                  <span class="project-stack">Code analysis</span>
+                  <span class="project-stack">Frontend</span>
+                  <span class="project-stack">UX flow</span>
+                  <span class="project-stack">Tooling</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card reveal">
+              <div class="project-media">
+                <img
+                  src="assets/Screenshot (4).png"
+                  alt="No-bg image background removal web application"
+                  width="1366"
+                  height="768"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="p-6">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <p class="text-xs font-bold uppercase tracking-[0.16em] text-primary">
+                      Image utility
+                    </p>
+                    <h3 class="mt-2 text-xl font-bold text-gray-950">
+                      No-bg
+                    </h3>
+                  </div>
+                  <a
+                    href="https://no-bg.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View No-bg live site"
+                    class="text-primary hover:text-primary/80 no-underline"
+                  >
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+                  </a>
+                </div>
+                <p class="mt-4 text-sm leading-relaxed text-gray-600">
+                  Designed a focused background-removal tool with simple upload,
+                  processing, and download flows for fast image cleanup tasks.
+                </p>
+                <div class="flex flex-wrap gap-2 mt-5">
+                  <span class="project-stack">Image processing</span>
+                  <span class="project-stack">Web app</span>
+                  <span class="project-stack">Utility UX</span>
+                  <span class="project-stack">Frontend</span>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="mt-16 reveal">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
+              <div>
+                <p class="text-sm font-semibold text-primary uppercase tracking-[0.2em] mb-3">
+                  Experience
+                </p>
+                <h3 class="text-2xl font-bold text-gray-950">
+                  Recent roles and product environments
+                </h3>
+              </div>
               <a
                 href="assets/Israel Ojiefoh.pdf"
                 download
-                aria-label="Download Israel Ojiefoh resume as PDF"
-                class="inline-flex items-center gap-2 px-4 py-3 rounded-xl border border-gray-200 text-gray-400 hover:border-primary hover:text-primary hover:bg-gray-50/50 transition-all no-underline text-sm"
-                title="Download resume"
+                class="inline-flex items-center gap-2 text-sm font-semibold text-primary no-underline hover:text-[#0055cc]"
               >
-                <i class="fas fa-file-pdf"></i>
+                Download resume <i class="fas fa-file-arrow-down"></i>
               </a>
             </div>
-          </div>
-          <div
-            class="shrink-0 reveal-right visible"
-            style="transition-delay: 0.2s"
-          >
-            <div class="hero-image-wrapper">
-              <img
-                src="assets/me.jpg"
-                alt="Portrait of Israel Ojiefoh, full-stack and mobile engineer"
-                width="320"
-                height="320"
-                loading="eager"
-                decoding="async"
-                fetchpriority="high"
-                class="w-72 h-72 sm:w-80 sm:h-80 object-cover rounded-2xl shadow-2xl"
-              />
-            </div>
+            <ol class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <li class="exp-card p-5">
+                <p class="text-xs font-bold uppercase tracking-[0.14em] text-primary">
+                  April 2026 - Present
+                </p>
+                <h4 class="mt-2 font-bold text-gray-950">
+                  Mobile Developer at Devnnova
+                </h4>
+                <p class="mt-2 text-sm text-gray-600 leading-relaxed">
+                  Leading cross-platform iOS and Android development with React
+                  Native and EAS release pipelines.
+                </p>
+              </li>
+              <li class="exp-card p-5">
+                <p class="text-xs font-bold uppercase tracking-[0.14em] text-primary">
+                  2024
+                </p>
+                <h4 class="mt-2 font-bold text-gray-950">
+                  Co-Founder &amp; Engineer at RunwayLogic
+                </h4>
+                <p class="mt-2 text-sm text-gray-600 leading-relaxed">
+                  Built a fashion-tech SaaS product around AI pricing and
+                  merchant workflow design.
+                </p>
+              </li>
+              <li class="exp-card p-5">
+                <p class="text-xs font-bold uppercase tracking-[0.14em] text-primary">
+                  2024 - 2025
+                </p>
+                <h4 class="mt-2 font-bold text-gray-950">
+                  Fullstack Developer at JaycoLinks
+                </h4>
+                <p class="mt-2 text-sm text-gray-600 leading-relaxed">
+                  Worked across tele-health and e-commerce systems using Nuxt,
+                  Express, PostgreSQL, and real-time messaging.
+                </p>
+              </li>
+              <li class="exp-card p-5">
+                <p class="text-xs font-bold uppercase tracking-[0.14em] text-primary">
+                  August 2024 - February 2025
+                </p>
+                <h4 class="mt-2 font-bold text-gray-950">
+                  Junior Software Developer at LuvDaSun
+                </h4>
+                <p class="mt-2 text-sm text-gray-600 leading-relaxed">
+                  Delivered feature implementation and cross-browser
+                  optimization in a distributed Agile team.
+                </p>
+              </li>
+            </ol>
           </div>
         </div>
-      </div>
       </section>
 
-    <!-- Work / Timeline Section -->
-    <section
-      id="work"
-      class="py-24 px-[5%] section-bg-alt"
-      aria-labelledby="work-title"
-    >
-      <div class="max-w-3xl mx-auto px-6">
-        <div class="text-center mb-16">
-          <p
-            class="text-sm font-semibold text-primary uppercase tracking-[0.2em] mb-4 reveal"
-          >
-            Work
-          </p>
-          <h2
-            id="work-title"
-            class="text-3xl sm:text-4xl font-bold text-gray-900 reveal"
-          >
-            Things I've done
-          </h2>
-          <p class="mt-4 text-gray-500 reveal">
-            Products I've built and teams I've been part of.
-          </p>
-        </div>
-
-        <div class="space-y-10">
-          <div class="reveal">
-            <div class="text-sm font-semibold text-primary">
-              APRIL 2026 - Present
+      <!-- About Section -->
+      <section id="about" class="py-24 px-[5%]" aria-labelledby="about-title">
+        <div class="max-w-6xl mx-auto px-6">
+          <div class="grid lg:grid-cols-[0.85fr_1.15fr] gap-12 lg:gap-16 items-center">
+            <div class="reveal-left">
+              <div class="about-image-wrapper">
+                <img
+                  src="assets/me.jpg"
+                  alt="Israel Ojiefoh working across mobile, backend, and full-stack engineering"
+                  width="288"
+                  height="288"
+                  loading="lazy"
+                  decoding="async"
+                  class="w-64 h-64 sm:w-72 sm:h-72 object-cover rounded-lg shadow-xl"
+                />
+              </div>
+              <div class="mt-8 grid grid-cols-2 gap-3">
+                <div class="metric-tile">
+                  <p class="text-xs font-semibold text-gray-500">Product range</p>
+                  <p class="mt-1 text-sm font-bold text-gray-950">
+                    Mobile, SaaS, APIs
+                  </p>
+                </div>
+                <div class="metric-tile">
+                  <p class="text-xs font-semibold text-gray-500">Team style</p>
+                  <p class="mt-1 text-sm font-bold text-gray-950">
+                    Remote-ready
+                  </p>
+                </div>
+              </div>
             </div>
-            <div class="mt-1">
-              <span class="text-gray-900 font-semibold">Mobile Developer</span>
-              <span class="text-gray-400"> at </span>
-              <span class="text-gray-900 font-semibold">Devnnova</span>
-            </div>
-            <p class="text-sm text-gray-500 mt-1 leading-relaxed">
-              Ontario, CANADA — Lead cross-platform iOS/Android development with
-              React Native, own EAS deployment pipelines.
-            </p>
-          </div>
-
-          <div class="reveal">
-            <div class="text-sm font-semibold text-primary">2024</div>
-            <div class="mt-1">
-              <span class="text-gray-900 font-semibold"
-                >Co-Founder &amp; Engineer</span
+            <div class="min-w-0 reveal-right">
+              <p
+                class="text-sm font-semibold text-primary uppercase tracking-[0.2em] mb-4"
               >
-              <span class="text-gray-400"> at </span>
-              <span class="text-gray-900 font-semibold">RunwayLogic</span>
-              <a
-                href="https://runwaylogic.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Visit RunwayLogic website"
-                class="text-primary hover:text-primary/80 text-sm ml-2 no-underline"
-                >&nearr;</a
-              >
-            </div>
-            <p class="text-sm text-gray-500 mt-1 leading-relaxed">
-              B2B SaaS fashion-tech platform — React dashboard with AI pricing,
-              re-architected into a Shopify App.
-            </p>
-          </div>
-
-          <div class="reveal">
-            <div class="text-sm font-semibold text-primary">2024 - 2025</div>
-            <div class="mt-1">
-              <span class="text-gray-900 font-semibold"
-                >FULLSTACK DEVELOPER</span
-              >
-              <span class="text-gray-400"> at </span>
-              <span class="text-gray-900 font-semibold">JaycoLinks</span>
-            </div>
-            <p class="text-sm text-gray-500 mt-1 leading-relaxed">
-              Tele-health &amp; e-commerce platform — Nuxt.js, Express,
-              PostgreSQL, real-time messaging.
-            </p>
-          </div>
-
-          <div class="reveal">
-            <div class="text-sm font-semibold text-primary">
-              AUGUST 2024 - FEBRUARY 2025
-            </div>
-            <div class="mt-1">
-              <span class="text-gray-900 font-semibold"
-                >Junior Software Developer</span
-              >
-              <span class="text-gray-400"> at </span>
-              <span class="text-gray-900 font-semibold">LuvDaSun</span>
-            </div>
-            <p class="text-sm text-gray-500 mt-1 leading-relaxed">
-              The Hague, Netherlands — Feature implementation and cross-browser
-              optimization in a distributed Agile team.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-24 px-[5%]" aria-labelledby="about-title">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="flex items-center gap-16 flex-col md:flex-row">
-          <div class="shrink-0 reveal-left">
-            <div class="about-image-wrapper">
-              <img
-                src="assets/me.jpg"
-                alt="Israel Ojiefoh working across mobile, backend, and full-stack engineering"
-                width="288"
-                height="288"
-                loading="lazy"
-                decoding="async"
-                class="w-64 h-64 sm:w-72 sm:h-72 object-cover rounded-2xl shadow-xl"
-              />
-            </div>
-          </div>
-          <div class="flex-1 min-w-0 reveal-right">
-            <p
-              class="text-sm font-semibold text-primary uppercase tracking-[0.2em] mb-4"
-            >
-              About
-            </p>
-            <h2
-              id="about-title"
-              class="text-3xl sm:text-4xl font-bold mb-6 text-gray-900"
-            >
-              Engineering across the full stack
-            </h2>
-            <div class="space-y-4 text-gray-500 leading-relaxed">
-              <p>
-                I'm a Full-Stack Engineer currently driving cross-platform
-                mobile initiatives at
-                <strong class="text-gray-800">Devnnova</strong>, where I manage
-                end-to-end deployment pipelines and optimize client-server
-                performance.
+                About
               </p>
-              <p>
-                My work spans architecting real-time engines with WebSockets,
-                refactoring relational database schemas for speed, and building
-                complex B2B SaaS integrations. I've also lectured at
-                <strong class="text-gray-800">Chrisland University</strong>,
-                breaking down production ML workflows for the next generation of
-                engineers.
-              </p>
-              <p>
-                I believe in clean code architectures, automated CI/CD safety
-                nets, and systems that scale effortlessly — from the database up
-                to the UI.
-              </p>
-            </div>
-            <div class="flex flex-wrap gap-2 mt-8">
-              <span class="skill-chip">React Native</span>
-              <span class="skill-chip">NestJS</span>
-              <span class="skill-chip">PostgreSQL</span>
-              <span class="skill-chip">Docker</span>
-              <span class="skill-chip">TypeScript</span>
-              <span class="skill-chip">FastAPI</span>
+              <h2
+                id="about-title"
+                class="text-3xl sm:text-4xl font-bold mb-6 text-gray-950"
+              >
+                A product-minded engineer across mobile, backend, and data.
+              </h2>
+              <div class="space-y-4 text-gray-600 leading-relaxed">
+                <p>
+                  I'm a Full-Stack Engineer currently driving cross-platform
+                  mobile initiatives at
+                  <strong class="text-gray-900">Devnnova</strong>, where I manage
+                  end-to-end deployment pipelines and optimize client-server
+                  performance.
+                </p>
+                <p>
+                  My work spans real-time engines with WebSockets, relational
+                  database performance, B2B SaaS integrations, and product
+                  interfaces that make complex workflows feel approachable.
+                  I've also lectured at
+                  <strong class="text-gray-900">Chrisland University</strong>,
+                  breaking down production ML workflows for the next generation
+                  of engineers.
+                </p>
+              </div>
+              <div class="grid sm:grid-cols-3 gap-4 mt-8">
+                <div>
+                  <i class="fas fa-diagram-project text-primary"></i>
+                  <h3 class="mt-3 font-bold text-gray-950">Architecture first</h3>
+                  <p class="mt-2 text-sm text-gray-500 leading-relaxed">
+                    Clear boundaries, maintainable APIs, and database decisions
+                    that survive real usage.
+                  </p>
+                </div>
+                <div>
+                  <i class="fas fa-wand-magic-sparkles text-primary"></i>
+                  <h3 class="mt-3 font-bold text-gray-950">Polished UX</h3>
+                  <p class="mt-2 text-sm text-gray-500 leading-relaxed">
+                    Interfaces with thoughtful states, responsive layouts, and
+                    practical interaction details.
+                  </p>
+                </div>
+                <div>
+                  <i class="fas fa-rocket text-primary"></i>
+                  <h3 class="mt-3 font-bold text-gray-950">Launch discipline</h3>
+                  <p class="mt-2 text-sm text-gray-500 leading-relaxed">
+                    CI/CD, release paths, observability habits, and handoffs that
+                    keep teams moving.
+                  </p>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2 mt-8">
+                <span class="skill-chip">React Native</span>
+                <span class="skill-chip">NestJS</span>
+                <span class="skill-chip">PostgreSQL</span>
+                <span class="skill-chip">Docker</span>
+                <span class="skill-chip">TypeScript</span>
+                <span class="skill-chip">FastAPI</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
     <div class="section-divider max-w-6xl mx-auto"></div>
 
-    <!-- Services Section -->
-    <section
-      id="services"
-      class="py-24 px-[5%] section-bg-alt"
-      aria-labelledby="services-title"
-    >
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-16">
-          <p
-            class="text-sm font-semibold text-primary uppercase tracking-[0.2em] mb-4 reveal"
-          >
-            Services
-          </p>
-          <h2
-            id="services-title"
-            class="text-3xl sm:text-4xl font-bold text-gray-900 reveal"
-          >
-            What I deliver
-          </h2>
-        </div>
+      <!-- Services Section -->
+      <section
+        id="services"
+        class="py-24 px-[5%] section-bg-alt"
+        aria-labelledby="services-title"
+      >
+        <div class="max-w-6xl mx-auto px-6">
+          <div class="max-w-2xl mb-14">
+            <p
+              class="text-sm font-semibold text-primary uppercase tracking-[0.2em] mb-4 reveal"
+            >
+              Services
+            </p>
+            <h2
+              id="services-title"
+              class="text-3xl sm:text-4xl font-bold text-gray-950 reveal"
+            >
+              Focused engineering support for teams that need momentum.
+            </h2>
+            <p class="mt-4 text-gray-500 leading-relaxed reveal">
+              I can plug in at the product, frontend, backend, or release layer,
+              then keep the implementation practical enough for a team to own.
+            </p>
+          </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div class="service-card-modern p-8 reveal">
             <div
-              class="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-5 text-primary"
+              class="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5 text-primary"
             >
               <i class="fas fa-mobile-alt text-lg"></i>
             </div>
@@ -852,7 +1208,7 @@
           </div>
           <div class="service-card-modern p-8 reveal">
             <div
-              class="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-5 text-primary"
+              class="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5 text-primary"
             >
               <i class="fas fa-server text-lg"></i>
             </div>
@@ -866,7 +1222,7 @@
           </div>
           <div class="service-card-modern p-8 reveal">
             <div
-              class="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-5 text-primary"
+              class="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5 text-primary"
             >
               <i class="fas fa-shopping-cart text-lg"></i>
             </div>
@@ -880,7 +1236,7 @@
           </div>
           <div class="service-card-modern p-8 reveal">
             <div
-              class="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-5 text-primary"
+              class="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5 text-primary"
             >
               <i class="fas fa-cubes text-lg"></i>
             </div>
@@ -892,7 +1248,7 @@
           </div>
           <div class="service-card-modern p-8 reveal">
             <div
-              class="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-5 text-primary"
+              class="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5 text-primary"
             >
               <i class="fas fa-brain text-lg"></i>
             </div>
@@ -904,7 +1260,7 @@
           </div>
           <div class="service-card-modern p-8 reveal">
             <div
-              class="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-5 text-primary"
+              class="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5 text-primary"
             >
               <i class="fas fa-code text-lg"></i>
             </div>
@@ -920,99 +1276,153 @@
       </div>
     </section>
 
-    <!-- Contact Section -->
-    <section
-      id="contact"
-      class="py-24 px-[5%]"
-      aria-labelledby="contact-title"
-    >
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="max-w-2xl mx-auto text-center mb-16">
-          <p
-            class="text-sm font-semibold text-primary uppercase tracking-[0.2em] mb-4 reveal"
-          >
-            Contact
-          </p>
-          <h2
-            id="contact-title"
-            class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 reveal"
-          >
-            Let's build something
-          </h2>
-          <p class="text-gray-500 reveal">
-            Available for technical consultations, architectural reviews, or
-            full-scale cross-platform delivery.
-          </p>
-        </div>
-        <div class="max-w-xl mx-auto">
-          <div
-            class="flex flex-col sm:flex-row gap-4 justify-center mb-12 reveal"
-          >
-            <a
-              href="mailto:israelmayowa580@gmail.com"
-              class="inline-flex items-center gap-3 px-6 py-4 rounded-xl bg-white border border-gray-200 hover:border-primary/30 hover:bg-primary/[0.02] transition-all no-underline group shadow-sm"
-            >
-              <i class="fas fa-envelope text-primary"></i>
-              <span
-                class="text-sm font-medium text-gray-600 group-hover:text-primary transition-colors"
-                >israelmayowa580@gmail.com</span
+      <!-- Contact Section -->
+      <section
+        id="contact"
+        class="py-24 px-[5%]"
+        aria-labelledby="contact-title"
+      >
+        <div class="max-w-6xl mx-auto px-6">
+          <div class="contact-shell grid lg:grid-cols-[0.85fr_1.15fr] overflow-hidden reveal">
+            <div class="bg-gray-950 text-white p-8 sm:p-10 lg:p-12">
+              <p class="text-sm font-semibold text-blue-200 uppercase tracking-[0.2em] mb-4">
+                Contact
+              </p>
+              <h2
+                id="contact-title"
+                class="text-3xl sm:text-4xl font-bold mb-5"
               >
-            </a>
-            <a
-              href="https://github.com/IsraelOjiefoh"
-              target="_blank"
-              rel="me noopener noreferrer"
-              class="inline-flex items-center gap-3 px-6 py-4 rounded-xl bg-white border border-gray-200 hover:border-primary/30 hover:bg-primary/[0.02] transition-all no-underline group shadow-sm"
-            >
-              <i class="fab fa-github text-primary"></i>
-              <span
-                class="text-sm font-medium text-gray-600 group-hover:text-primary transition-colors"
-                >GitHub</span
-              >
-            </a>
-          </div>
-          <form id="myForm" class="space-y-5 reveal">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <input
-                type="text"
-                id="name"
-                name="name"
-                aria-label="Your name"
-                autocomplete="name"
-                placeholder="Your name"
-                required
-                class="input-modern w-full px-5 py-4 rounded-xl border border-gray-200 bg-white text-gray-800 text-sm focus:outline-none transition-all placeholder:text-gray-400"
-              />
-              <input
-                type="email"
-                id="email"
-                name="email"
-                aria-label="Your email"
-                autocomplete="email"
-                placeholder="Your email"
-                required
-                class="input-modern w-full px-5 py-4 rounded-xl border border-gray-200 bg-white text-gray-800 text-sm focus:outline-none transition-all placeholder:text-gray-400"
-              />
+                Let's turn your product idea into a clean, shippable system.
+              </h2>
+              <p class="text-gray-300 leading-relaxed">
+                Send a short brief and I will respond with the clearest next
+                step, whether that is a build plan, an architecture review, or a
+                focused implementation sprint.
+              </p>
+
+              <div class="mt-8 space-y-4">
+                <a
+                  href="mailto:israelmayowa580@gmail.com"
+                  class="flex items-center gap-3 text-white no-underline hover:text-blue-200"
+                >
+                  <i class="fas fa-envelope text-blue-300"></i>
+                  <span class="text-sm font-semibold">
+                    israelmayowa580@gmail.com
+                  </span>
+                </a>
+                <a
+                  href="https://github.com/IsraelOjiefoh"
+                  target="_blank"
+                  rel="me noopener noreferrer"
+                  class="flex items-center gap-3 text-white no-underline hover:text-blue-200"
+                >
+                  <i class="fab fa-github text-blue-300"></i>
+                  <span class="text-sm font-semibold">GitHub portfolio</span>
+                </a>
+                <a
+                  href="assets/Israel Ojiefoh.pdf"
+                  download
+                  class="flex items-center gap-3 text-white no-underline hover:text-blue-200"
+                >
+                  <i class="fas fa-file-pdf text-blue-300"></i>
+                  <span class="text-sm font-semibold">Download resume</span>
+                </a>
+              </div>
+
+              <div class="mt-10 border-t border-white/10 pt-8">
+                <p class="text-xs font-bold uppercase tracking-[0.18em] text-blue-200">
+                  Best fit for
+                </p>
+                <ul class="mt-4 space-y-3 text-sm text-gray-300">
+                  <li class="flex gap-3">
+                    <i class="fas fa-check text-blue-300 mt-1"></i>
+                    <span>React Native apps and release pipelines</span>
+                  </li>
+                  <li class="flex gap-3">
+                    <i class="fas fa-check text-blue-300 mt-1"></i>
+                    <span>Backend APIs, PostgreSQL, and real-time systems</span>
+                  </li>
+                  <li class="flex gap-3">
+                    <i class="fas fa-check text-blue-300 mt-1"></i>
+                    <span>SaaS dashboards, e-commerce flows, and AI utilities</span>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <textarea
-              name="message"
-              id="message"
-              rows="4"
-              aria-label="Project message"
-              placeholder="Tell me about your project..."
-              required
-              class="input-modern w-full px-5 py-4 rounded-xl border border-gray-200 bg-white text-gray-800 text-sm focus:outline-none transition-all placeholder:text-gray-400 resize-y"
-            ></textarea>
-            <button
-              type="submit"
-              class="w-full py-4 rounded-xl bg-primary text-white font-medium text-sm hover:bg-[#0055cc] transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 cursor-pointer border-0"
-            >
-              Send message
-            </button>
-          </form>
+
+            <div class="p-8 sm:p-10 lg:p-12">
+              <form
+                id="myForm"
+                class="space-y-5"
+                aria-describedby="formStatus"
+              >
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label class="form-label" for="name">Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      autocomplete="name"
+                      placeholder="Your name"
+                      required
+                      class="input-modern w-full px-4 py-3 rounded-lg border border-gray-200 bg-white text-gray-800 text-sm focus:outline-none transition-all placeholder:text-gray-400"
+                    />
+                  </div>
+                  <div>
+                    <label class="form-label" for="email">Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      autocomplete="email"
+                      placeholder="you@example.com"
+                      required
+                      class="input-modern w-full px-4 py-3 rounded-lg border border-gray-200 bg-white text-gray-800 text-sm focus:outline-none transition-all placeholder:text-gray-400"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label class="form-label" for="projectType">Project type</label>
+                  <select
+                    id="projectType"
+                    name="project_type"
+                    class="input-modern w-full px-4 py-3 rounded-lg border border-gray-200 bg-white text-gray-800 text-sm focus:outline-none transition-all"
+                  >
+                    <option value="Mobile app">Mobile app</option>
+                    <option value="Backend/API">Backend/API</option>
+                    <option value="SaaS platform">SaaS platform</option>
+                    <option value="Architecture review">Architecture review</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="form-label" for="message">Project brief</label>
+                  <textarea
+                    name="message"
+                    id="message"
+                    rows="5"
+                    placeholder="Tell me what you are building, your timeline, and where you need help."
+                    required
+                    class="input-modern w-full px-4 py-3 rounded-lg border border-gray-200 bg-white text-gray-800 text-sm focus:outline-none transition-all placeholder:text-gray-400 resize-y"
+                  ></textarea>
+                </div>
+                <p
+                  id="formStatus"
+                  class="form-status text-sm text-gray-500"
+                  aria-live="polite"
+                ></p>
+                <button
+                  type="submit"
+                  class="w-full py-4 rounded-lg bg-primary text-white font-semibold text-sm hover:bg-[#0055cc] transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 cursor-pointer border-0"
+                >
+                  Send message
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
     </main>
 
     <!-- Success Popup -->
@@ -1021,7 +1431,7 @@
       id="overlay"
     ></div>
     <div
-      class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-2xl shadow-2xl z-[1001] text-center hidden w-[90%] max-w-sm"
+      class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-lg shadow-2xl z-[1001] text-center hidden w-[90%] max-w-sm"
       id="successPopup"
     >
       <div
@@ -1035,7 +1445,7 @@
       </p>
       <button
         id="closePopup"
-        class="px-6 py-3 rounded-xl bg-primary text-white text-sm font-medium hover:bg-[#0055cc] transition-all cursor-pointer border-0"
+        class="px-6 py-3 rounded-lg bg-primary text-white text-sm font-medium hover:bg-[#0055cc] transition-all cursor-pointer border-0"
       >
         Got it
       </button>
@@ -1105,12 +1515,15 @@
       // Contact Form
       const form = document.getElementById("myForm");
       const submitBtn = form.querySelector("button[type=submit]");
+      const formStatus = document.getElementById("formStatus");
       form.addEventListener("submit", function (e) {
         e.preventDefault();
         const orig = submitBtn.innerHTML;
         submitBtn.disabled = true;
         submitBtn.innerHTML =
           '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        formStatus.textContent = "Sending your message...";
+        formStatus.className = "form-status text-sm text-gray-500";
         const data = new FormData(form);
         fetch("https://formspree.io/f/xzblkkol", {
           method: "POST",
@@ -1122,9 +1535,20 @@
               document.getElementById("overlay").style.display = "block";
               document.getElementById("successPopup").style.display = "block";
               form.reset();
+              formStatus.textContent = "Message sent successfully.";
+              formStatus.className = "form-status text-sm text-green-600";
+            } else {
+              formStatus.textContent =
+                "Something went wrong. Please email me directly if this keeps happening.";
+              formStatus.className = "form-status text-sm text-red-600";
             }
           })
-          .catch(console.error)
+          .catch((error) => {
+            console.error(error);
+            formStatus.textContent =
+              "Network error. Please email me directly if this keeps happening.";
+            formStatus.className = "form-status text-sm text-red-600";
+          })
           .finally(() => {
             submitBtn.disabled = false;
             submitBtn.innerHTML = orig;
