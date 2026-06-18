@@ -20,6 +20,12 @@ Israel Ojiefoh is a Full-Stack and Mobile Engineer. His work covers React Native
 - Data Pipelines: Feature extraction, model evaluation, and production-focused data workflows.
 - Full-Stack Prototyping: Product architecture, API design, frontend delivery, and deployed MVPs.
 
+## Selected Projects
+
+- [RendezvousCare](https://www.rendezvouscare.com/): Comprehensive wellness platform for personal growth, relationship matching, life coaching, licensed therapy access, wellness commerce, travel booking, events, luxury brands, gift cards, and affiliate rewards.
+- [Entrant](https://www.myentrant.com/): Country-arrival guidance platform for newcomers, combining visa rules, scam warnings, local systems, navigation, care passage, benefits, community, mentor matching, compliance reminders, and arrival glossaries into one trusted path.
+- [ElAura](https://elaura.pxxl.click/): African creator-brand partnership platform for campaign strategy, influencer discovery, niche filtering, verified metrics, direct communication, secure escrow payments, milestone tracking, and creator payout infrastructure.
+
 ## Work History
 
 - Devnnova: Mobile Developer, April 2026 to present.
