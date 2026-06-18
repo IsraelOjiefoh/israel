@@ -22,15 +22,6 @@
         --transition: all 0.3s ease;
       }
 
-      .dark-mode {
-        --text-color: #ffffff;
-        --bg-color: #001233;
-        --accent-color: #e0e0e0;
-        --light-gray: #0a1a3a;
-        --card-bg: #0a1a3a;
-        --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      }
-
       * {
         margin: 0;
         padding: 0;
@@ -178,11 +169,6 @@
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       }
 
-      .dark-mode .navbar {
-        background: rgba(0, 18, 51, 0.95);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-      }
-
       .logo {
         font-size: 1.8rem;
         font-weight: 700;
@@ -217,20 +203,6 @@
       .nav-links a:hover::after,
       .nav-links a.active::after {
         width: 100%;
-      }
-
-      #theme-toggle {
-        background: none;
-        border: none;
-        color: var(--text-color);
-        font-size: 1.2rem;
-        cursor: pointer;
-        margin-left: 2rem;
-        transition: var(--transition);
-      }
-
-      #theme-toggle:hover {
-        color: var(--primary-color);
       }
 
       .mobile-menu {
@@ -474,10 +446,6 @@
         position: relative;
       }
 
-      .dark-mode .progress-bar {
-        background: rgba(255, 255, 255, 0.1);
-      }
-
       .progress-bar::after {
         content: "";
         position: absolute;
@@ -683,11 +651,6 @@
         transition: var(--transition);
       }
 
-      .dark-mode #myForm input,
-      .dark-mode #myForm textarea {
-        border-color: rgba(255, 255, 255, 0.1);
-      }
-
       #myForm input:focus,
       #myForm textarea:focus {
         border-color: var(--primary-color);
@@ -724,11 +687,6 @@
         z-index: 1001;
         text-align: center;
         display: none;
-      }
-
-      .dark-mode .success-popup {
-        background: var(--secondary-color);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
       }
 
       .success-popup i {
@@ -863,11 +821,6 @@
           z-index: 999;
         }
 
-        .dark-mode .nav-links {
-          background: var(--secondary-color);
-          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-
         .nav-links.show {
           transform: translateY(0);
         }
@@ -922,7 +875,7 @@
       }
     </style>
   </head>
-  <body class="light-mode">
+  <body>
     <!-- Navbar -->
     <nav class="navbar">
       <div class="logo">Israel</div>
@@ -932,9 +885,6 @@
         <a href="#services">Services</a>
         <a href="#portfolio">Portfolio</a>
         <a href="#contact">Contact</a>
-        <button id="theme-toggle" aria-label="Toggle dark mode">
-          <i class="fas fa-moon"></i>
-        </button>
       </div>
       <div class="mobile-menu">
         <i class="fas fa-bars"></i>
@@ -1280,23 +1230,6 @@
     </footer>
 
     <script>
-      // Theme Toggle
-      const themeToggle = document.getElementById("theme-toggle");
-      const body = document.body;
-
-      themeToggle.addEventListener("click", () => {
-        body.classList.toggle("dark-mode");
-        const icon = themeToggle.querySelector("i");
-
-        if (body.classList.contains("dark-mode")) {
-          icon.classList.remove("fa-moon");
-          icon.classList.add("fa-sun");
-        } else {
-          icon.classList.remove("fa-sun");
-          icon.classList.add("fa-moon");
-        }
-      });
-
       // Mobile Menu Toggle
       const mobileMenuBtn = document.querySelector(".mobile-menu");
       const navLinks = document.querySelector(".nav-links");
