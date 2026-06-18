@@ -8,8 +8,8 @@ Israel Ojiefoh is a Full-Stack and Mobile Engineer. His work covers React Native
 
 ## Primary Page
 
-- [Portfolio home](https://israelojiefoh.github.io/israel/): Main professional profile, work history, services, skills, and contact options.
-- [Resume PDF](https://israelojiefoh.github.io/israel/assets/Israel%20Ojiefoh.pdf): Downloadable resume.
+- [Portfolio home](https://israelojiefoh.cv/): Main professional profile, work history, services, skills, and contact options.
+- [Resume PDF](https://israelojiefoh.cv/assets/Israel%20Ojiefoh.pdf): Downloadable resume.
 
 ## Services
 

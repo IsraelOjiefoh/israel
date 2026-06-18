@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://israelojiefoh.github.io/israel/sitemap.xml
+Sitemap: https://israelojiefoh.cv/sitemap.xml
